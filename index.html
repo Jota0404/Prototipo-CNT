@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Um convite especial...</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card">
+    <!-- Indicador de Progresso -->
+    <div class="progress-bar" id="progress-bar" style="display: none;">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+
+<!-- ETAPA INTRO: TEASER -->
+    <div class="step active" id="step-intro">
+      <h1>Oi Duda, tenho uma proposta pra você 👀</h1>
+      <div class="buttons-row">
+        <button class="btn-primary" id="btn-intro">Saber mais</button>
+      </div>
+    </div>
+
+    <!-- ETAPA 0: O CONVITE -->
+    <div class="step" id="step-0">
+      <h1> E se a gente marcar um date?</h1>
+      <div class="buttons-row">
+        <button class="btn-primary" id="btn-sim">Bora!</button>
+        <button class="btn-secondary" id="btn-nao">Não</button>
+      </div>
+    </div>
+
+    <!-- ETAPA 1 -->
+    <div class="step" id="step-1">
+      <div class="header-subtitle">
+        <h2>Sim! 🎉</h2>
+        <p>Só mais algumas perguntinhas rápidas e o encontro está pronto!</p>
+      </div>
+      <h3>Que tipo de encontro você gostaria de ter?</h3>
+      <div class="grid-options">
+        <button class="option-card" data-key="tipo" data-val="Jantar 🍷">Jantar 🍷</button>
+        <button class="option-card" data-key="tipo" data-val="Noite de cinema 🎬">Noite de cinema 🎬</button>
+        <button class="option-card" data-key="tipo" data-val="Caminhada no parque 🌳">Caminhada no parque 🌳</button>
+        <button class="option-card" data-key="tipo" data-val="Me surpreenda 🎁">Me surpreenda 🎁</button>
+      </div>
+      <div class="footer-nav">
+        <div></div>
+        <button class="btn-primary btn-next" onclick="nextStep(2)" disabled>Próximo</button>
+      </div>
+    </div>
+
+    <!-- ETAPA 2 -->
+    <div class="step" id="step-2">
+      <div class="header-subtitle">
+        <h2>Sim! 🎉</h2>
+        <p>Só mais algumas perguntinhas rápidas e o encontro está pronto!</p>
+      </div>
+      <h3>Que estilo de roupa você gostaria de usar?</h3>
+      <div class="grid-options">
+        <button class="option-card" data-key="roupa" data-val="Elegante">Elegante</button>
+        <button class="option-card" data-key="roupa" data-val="Casual e confortável">Casual e confortável</button>
+        <button class="option-card" data-key="roupa" data-val="Arrumada para impressionar">Arrumada para impressionar</button>
+        <button class="option-card" data-key="roupa" data-val="Me surpreenda">Me surpreenda</button>
+      </div>
+      <div class="footer-nav">
+        <button class="btn-link" onclick="prevStep(1)">Voltar</button>
+        <button class="btn-primary btn-next" onclick="nextStep(3)" disabled>Próximo</button>
+      </div>
+    </div>
+
+    <!-- ETAPA 3 -->
+    <div class="step" id="step-3">
+      <div class="header-subtitle">
+        <h2>Sim! 🎉</h2>
+        <p>Só mais algumas perguntinhas rápidas e o encontro está pronto!</p>
+      </div>
+      <h3>Quem busca quem?</h3>
+      <div class="grid-options cols-2">
+        <button class="option-card" data-key="transporte" data-val="Venha me buscar">Venha me buscar</button>
+        <button class="option-card" data-key="transporte" data-val="Nos encontramos lá">Nos encontramos lá</button>
+      </div>
+      <div class="footer-nav">
+        <button class="btn-link" onclick="prevStep(2)">Voltar</button>
+        <button class="btn-primary btn-next" onclick="nextStep(4)" disabled>Próximo</button>
+      </div>
+    </div>
+
+    <!-- ETAPA 4 -->
+    <div class="step" id="step-4">
+      <div class="header-subtitle">
+        <h2>Sim! 🎉</h2>
+        <p>Só mais algumas perguntinhas rápidas e o encontro está pronto!</p>
+      </div>
+      <h3>O quanto você está animada?</h3>
+      <div class="slider-container">
+        <span class="slider-value" id="slider-val">7</span>
+        <input type="range" id="animacao-range" min="7" max="10" value="7">
+        <p class="slider-hint">De 1 a 10, mas sejamos sinceros, não dá pra ficar abaixo de 7 😉</p>
+      </div>
+      <div class="footer-nav">
+        <button class="btn-link" onclick="prevStep(3)">Voltar</button>
+        <!-- Sempre habilitado porque o range sempre tem um valor -->
+        <button class="btn-primary btn-next" onclick="nextStep(5)">Próximo</button>
+      </div>
+    </div>
+
+    <!-- ETAPA 5 -->
+    <div class="step" id="step-5">
+      <div class="header-subtitle">
+        <h2>Sim! 🎉</h2>
+        <p>Só mais algumas perguntinhas rápidas e o encontro está pronto!</p>
+      </div>
+      <h3>Tem algo que você realmente gostaria?</h3>
+      <div class="textarea-container">
+        <textarea id="pedido-text" maxlength="100" placeholder="Escreva aqui se tiver algum pedido (opcional)"></textarea>
+        <span class="char-counter" id="char-counter">0/100</span>
+      </div>
+      <div class="footer-nav">
+        <button class="btn-link" onclick="prevStep(4)">Voltar</button>
+        <!-- Sempre habilitado porque é opcional -->
+        <button class="btn-primary btn-next" onclick="nextStep(6)">Próximo</button>
+      </div>
+    </div>
+
+    <!-- ETAPA 6 -->
+    <div class="step" id="step-6">
+      <div class="header-subtitle">
+        <h2>Sim! 🎉</h2>
+        <p>Só mais algumas perguntinhas rápidas e o encontro está pronto!</p>
+      </div>
+      <h3>Qual dia funciona pra você?</h3>
+      
+      <!-- Container onde o JavaScript vai inserir as datas dinâmicas -->
+      <div class="grid-options single-col" id="dates-container"></div>
+
+      <p class="custom-date-label">Ou escolha um dia que funcione melhor para você:</p>
+      <input type="date" id="custom-date-input" class="date-input">
+
+      <div class="footer-nav">
+        <button class="btn-link" onclick="prevStep(5)">Voltar</button>
+        <button class="btn-primary btn-next" onclick="finishForm()" id="btn-finalizar" disabled>Enviar</button>
+      </div>
+    </div>
+
+    <!-- ETAPA 7: SUCESSO -->
+    <div class="step" id="step-7">
+      <div class="header-subtitle">
+        <h2>Tudo pronto! 🎉</h2>
+        <p>Anotei aqui suas respostas. Até breve!</p>
+      </div>
+      <div class="illustrations">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZneXZ3bnhsbW54bzN3M3EzYjlqNDMxaThqOHJveWdyZHFmdXJ2ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" alt="Cute Cat">
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
