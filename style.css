@@ -32,26 +32,12 @@ body {
   gap: 16px;
 }
 
-.logo-circle {
+/* Nova classe da imagem da Logo */
+.logo-img {
   width: 68px;
   height: 68px;
-  background-color: #cca228;
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #111112;
-  font-weight: 800;
-  font-size: 0.95rem;
-  line-height: 0.9;
-  letter-spacing: -0.5px;
-}
-
-.logo-circle .logo-sub {
-  font-size: 0.65rem;
-  font-weight: 600;
-  margin: 1px 0;
+  border-radius: 50%; /* Corta os cantos pretos da imagem deixando apenas o círculo amarelo */
+  object-fit: cover;
 }
 
 .header-desc {
