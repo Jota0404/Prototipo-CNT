@@ -54,8 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   form.addEventListener('input', checkFormValidity);
 
-  // 5. Envio dos Dados
-  form.addEventListener('submit', (e) => {
+// 5. Envio dos Dados para o Supabase
+  const SUPABASE_URL = 'https://uefzlaahnukrqmlgkbgv.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_lsDwZIB1_VtgzMU9d3Uv9Q_U_ceLqei'; // A que começa com sb_publishable_
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const formData = {
