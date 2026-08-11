@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       value = `${value.slice(0, 5)}-${value.slice(5)}`;
     }
     e.target.value = value;
+    checkFormValidity();
   });
 
   // 4. Ativação visual do botão quando campos obrigatórios estiverem preenchidos
@@ -54,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   form.addEventListener('input', checkFormValidity);
 
-// 5. Envio dos Dados para o Supabase
+  // 5. Envio dos Dados para o Supabase
   const SUPABASE_URL = 'https://uefzlaahnukrqmlgkbgv.supabase.co';
   const SUPABASE_ANON_KEY = 'sb_publishable_lsDwZIB1_VtgzMU9d3Uv9Q_U_ceLqei';
 
@@ -92,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error('Erro na comunicação com o banco de dados.');
       }
 
-      // --- ALTERAÇÃO AQUI ---
       // Esconde o formulário e o header para evitar novos envios
       const formHeader = document.querySelector('.form-header');
       if (formHeader) formHeader.style.display = 'none';
@@ -110,3 +110,5 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.innerText = 'Concluir e Ver Conteúdos';
       submitBtn.style.opacity = '1';
     }
+  }); 
+});
