@@ -44,6 +44,39 @@ document.addEventListener('DOMContentLoaded', () => {
     checkFormValidity();
   });
 
+  // 3.1 Função para buscar o CEP na API (ViaCEP)
+async function buscarEndereco(cep) {
+  // Remove qualquer caractere que não seja número
+  const cepLimpo = cep.replace(/\D/g, '');
+
+  if (cepLimpo.length !== 8) {
+    return; // CEP incompleto, não faz a busca
+  }
+
+  try {
+    const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+    const data = await response.json();
+
+    if (!data.erro) {
+      // Preenche os campos se encontrar o endereço
+      document.getElementById('endereco').value = data.logradouro;
+      document.getElementById('bairro').value = data.bairro;
+      
+      // Opcional: Se quiser dar foco no campo seguinte (ex: número da casa)
+      // document.getElementById('numero').focus(); 
+    } else {
+      alert("CEP não encontrado.");
+    }
+  } catch (error) {
+    console.error("Erro ao buscar CEP:", error);
+  }
+}
+
+// Adiciona o ouvinte de evento no campo CEP
+cepInput.addEventListener('blur', (e) => {
+  buscarEndereco(e.target.value);
+});
+
   // 4. Ativação visual do botão quando campos obrigatórios estiverem preenchidos
   function checkFormValidity() {
     if (form.checkValidity() && sexoHiddenInput.value !== '') {
