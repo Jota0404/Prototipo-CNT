@@ -92,21 +92,21 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error('Erro na comunicação com o banco de dados.');
       }
 
-      alert('Cadastro realizado com sucesso! Que alegria ter você com a gente.');
-      
-      // Limpa o formulário
-      form.reset();
-      pillBtns.forEach(b => b.classList.remove('selected'));
-      sexoHiddenInput.value = '';
-      submitBtn.classList.remove('active');
+      // --- ALTERAÇÃO AQUI ---
+      // Esconde o formulário e o header para evitar novos envios
+      const formHeader = document.querySelector('.form-header');
+      if (formHeader) formHeader.style.display = 'none';
+      form.style.display = 'none';
+
+      // Mostra a tela de sucesso estilizada
+      const successScreen = document.getElementById('success-screen');
+      if (successScreen) successScreen.style.display = 'flex';
 
     } catch (error) {
       console.error('Erro:', error);
       alert('Ops! Tivemos um problema de conexão. Tente novamente em instantes.');
-    } finally {
-      // Destrava o botão
+      // Restaura o botão caso dê erro
       submitBtn.disabled = false;
       submitBtn.innerText = 'Concluir e Ver Conteúdos';
       submitBtn.style.opacity = '1';
     }
-  });

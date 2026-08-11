@@ -196,3 +196,38 @@ input[type="number"]::-webkit-outer-spin-button {
 .btn-submit:active {
   transform: scale(0.99);
 }
+
+/* Tela de Sucesso Pós-Envio */
+.success-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  padding: 40px 24px;
+  background: #1c1c1e;
+  border-radius: 20px;
+  border: 1px solid #2c2c2e;
+  max-width: 440px;
+  width: 100%;
+  margin: 40px auto;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.success-title {
+  color: #f5f5f7;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.success-desc {
+  color: #d1d1d6;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
