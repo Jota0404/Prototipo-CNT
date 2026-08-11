@@ -88,7 +88,7 @@ cepInput.addEventListener('blur', (e) => {
 
   form.addEventListener('input', checkFormValidity);
 
-  // 5. Envio dos Dados para o Supabase
+ // 5. Envio dos Dados para o Supabase
   const SUPABASE_URL = 'https://uefzlaahnukrqmlgkbgv.supabase.co';
   const SUPABASE_ANON_KEY = 'sb_publishable_lsDwZIB1_VtgzMU9d3Uv9Q_U_ceLqei';
 
@@ -123,7 +123,11 @@ cepInput.addEventListener('blur', (e) => {
       });
 
       if (!response.ok) {
-        throw new Error('Erro na comunicação com o banco de dados.');
+        // Se o status for 409 (Conflict), significa que o WhatsApp já existe na base
+        if (response.status === 409) {
+          throw new Error('WHATSAPP_DUPLICADO');
+        }
+        throw new Error('ERRO_BANCO');
       }
 
       // Esconde o formulário e o header para evitar novos envios
@@ -137,11 +141,19 @@ cepInput.addEventListener('blur', (e) => {
 
     } catch (error) {
       console.error('Erro:', error);
-      alert('Ops! Tivemos um problema de conexão. Tente novamente em instantes.');
+
+      // Mensagens customizadas de acordo com o tipo de erro
+      if (error.message === 'WHATSAPP_DUPLICADO') {
+        alert('Este número de WhatsApp já está cadastrado!');
+      } else if (error.message === 'ERRO_BANCO') {
+        alert('Não foi possível salvar o seu cadastro. Tente novamente.');
+      } else {
+        alert('Ops! Falha de conexão. Verifique sua internet e tente novamente.');
+      }
+
       // Restaura o botão caso dê erro
       submitBtn.disabled = false;
       submitBtn.innerText = 'Concluir e Ver Conteúdos';
       submitBtn.style.opacity = '1';
     }
-  }); 
-});
+  });
