@@ -3,161 +3,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Um convite especial...</title>
+  <title>Céu na Terra - Cadastro</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="card">
-    <!-- Indicador de Progresso -->
-    <div class="progress-bar" id="progress-bar" style="display: none;">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-    </div>
 
-<!-- ETAPA INTRO: TEASER -->
-    <div class="step active" id="step-intro">
-      <h1>Oi Duda, tenho uma proposta pra você 👀</h1>
-      <div class="buttons-row">
-        <button class="btn-primary" id="btn-intro">Saber mais</button>
+  <div class="form-container">
+    <!-- Header -->
+    <header class="form-header">
+      <div class="logo-circle">
+        <span>Céu</span>
+        <span class="logo-sub">na</span>
+        <span>terra</span>
       </div>
-    </div>
+      <p class="header-desc">
+        Que alegria ter você aqui! Vamos te conhecer melhor para começar sua jornada de fé.
+      </p>
+    </header>
 
-    <!-- ETAPA 0: O CONVITE -->
-    <div class="step" id="step-0">
-      <h1> E se a gente marcar um date?</h1>
-      <div class="buttons-row">
-        <button class="btn-primary" id="btn-sim">Bora!</button>
-        <button class="btn-secondary" id="btn-nao">Não</button>
-      </div>
-    </div>
+    <form id="cadastro-form">
+      <!-- Seção 1: Seus Dados -->
+      <section class="form-section">
+        <h2 class="section-title">SEUS DADOS</h2>
 
-    <!-- ETAPA 1 -->
-    <div class="step" id="step-1">
-      <div class="header-subtitle">
-        <h2>Sim! 🎉</h2>
-        <p>Só mais algumas perguntinhas rápidas e o encontro está pronto!</p>
-      </div>
-      <h3>Que tipo de encontro você gostaria de ter?</h3>
-      <div class="grid-options">
-        <button class="option-card" data-key="tipo" data-val="Jantar 🍷">Jantar 🍷</button>
-        <button class="option-card" data-key="tipo" data-val="Noite de cinema 🎬">Noite de cinema 🎬</button>
-        <button class="option-card" data-key="tipo" data-val="Caminhada no parque 🌳">Caminhada no parque 🌳</button>
-        <button class="option-card" data-key="tipo" data-val="Me surpreenda 🎁">Me surpreenda 🎁</button>
-      </div>
-      <div class="footer-nav">
-        <div></div>
-        <button class="btn-primary btn-next" onclick="nextStep(2)" disabled>Próximo</button>
-      </div>
-    </div>
+        <div class="input-group">
+          <label for="nome">Nome completo</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+          </div>
+        </div>
 
-    <!-- ETAPA 2 -->
-    <div class="step" id="step-2">
-      <div class="header-subtitle">
-        <h2>Sim! 🎉</h2>
-        <p>Só mais algumas perguntinhas rápidas e o encontro está pronto!</p>
-      </div>
-      <h3>Que estilo de roupa você gostaria de usar?</h3>
-      <div class="grid-options">
-        <button class="option-card" data-key="roupa" data-val="Elegante">Elegante</button>
-        <button class="option-card" data-key="roupa" data-val="Casual e confortável">Casual e confortável</button>
-        <button class="option-card" data-key="roupa" data-val="Arrumada para impressionar">Arrumada para impressionar</button>
-        <button class="option-card" data-key="roupa" data-val="Me surpreenda">Me surpreenda</button>
-      </div>
-      <div class="footer-nav">
-        <button class="btn-link" onclick="prevStep(1)">Voltar</button>
-        <button class="btn-primary btn-next" onclick="nextStep(3)" disabled>Próximo</button>
-      </div>
-    </div>
+        <div class="input-group">
+          <label for="whatsapp">WhatsApp</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <input type="tel" id="whatsapp" name="whatsapp" placeholder="(61) 99999-9999" maxlength="15" required>
+          </div>
+        </div>
 
-    <!-- ETAPA 3 -->
-    <div class="step" id="step-3">
-      <div class="header-subtitle">
-        <h2>Sim! 🎉</h2>
-        <p>Só mais algumas perguntinhas rápidas e o encontro está pronto!</p>
-      </div>
-      <h3>Quem busca quem?</h3>
-      <div class="grid-options cols-2">
-        <button class="option-card" data-key="transporte" data-val="Venha me buscar">Venha me buscar</button>
-        <button class="option-card" data-key="transporte" data-val="Nos encontramos lá">Nos encontramos lá</button>
-      </div>
-      <div class="footer-nav">
-        <button class="btn-link" onclick="prevStep(2)">Voltar</button>
-        <button class="btn-primary btn-next" onclick="nextStep(4)" disabled>Próximo</button>
-      </div>
-    </div>
+        <div class="input-group">
+          <label for="idade">Idade</label>
+          <input type="number" id="idade" name="idade" placeholder="Ex: 28" min="1" max="120" required>
+        </div>
 
-    <!-- ETAPA 4 -->
-    <div class="step" id="step-4">
-      <div class="header-subtitle">
-        <h2>Sim! 🎉</h2>
-        <p>Só mais algumas perguntinhas rápidas e o encontro está pronto!</p>
-      </div>
-      <h3>O quanto você está animada?</h3>
-      <div class="slider-container">
-        <span class="slider-value" id="slider-val">7</span>
-        <input type="range" id="animacao-range" min="7" max="10" value="7">
-        <p class="slider-hint">De 1 a 10, mas sejamos sinceros, não dá pra ficar abaixo de 7 😉</p>
-      </div>
-      <div class="footer-nav">
-        <button class="btn-link" onclick="prevStep(3)">Voltar</button>
-        <!-- Sempre habilitado porque o range sempre tem um valor -->
-        <button class="btn-primary btn-next" onclick="nextStep(5)">Próximo</button>
-      </div>
-    </div>
+        <div class="input-group">
+          <label>Sexo</label>
+          <div class="pill-group">
+            <button type="button" class="pill-btn" data-value="Masculino">Masculino</button>
+            <button type="button" class="pill-btn" data-value="Feminino">Feminino</button>
+          </div>
+          <input type="hidden" id="sexo" name="sexo">
+        </div>
+      </section>
 
-    <!-- ETAPA 5 -->
-    <div class="step" id="step-5">
-      <div class="header-subtitle">
-        <h2>Sim! 🎉</h2>
-        <p>Só mais algumas perguntinhas rápidas e o encontro está pronto!</p>
-      </div>
-      <h3>Tem algo que você realmente gostaria?</h3>
-      <div class="textarea-container">
-        <textarea id="pedido-text" maxlength="100" placeholder="Escreva aqui se tiver algum pedido (opcional)"></textarea>
-        <span class="char-counter" id="char-counter">0/100</span>
-      </div>
-      <div class="footer-nav">
-        <button class="btn-link" onclick="prevStep(4)">Voltar</button>
-        <!-- Sempre habilitado porque é opcional -->
-        <button class="btn-primary btn-next" onclick="nextStep(6)">Próximo</button>
-      </div>
-    </div>
+      <!-- Seção 2: Onde Você Mora -->
+      <section class="form-section">
+        <h2 class="section-title">ONDE VOCÊ MORA</h2>
 
-    <!-- ETAPA 6 -->
-    <div class="step" id="step-6">
-      <div class="header-subtitle">
-        <h2>Sim! 🎉</h2>
-        <p>Só mais algumas perguntinhas rápidas e o encontro está pronto!</p>
-      </div>
-      <h3>Qual dia funciona pra você?</h3>
-      
-      <!-- Container onde o JavaScript vai inserir as datas dinâmicas -->
-      <div class="grid-options single-col" id="dates-container"></div>
+        <div class="input-group">
+          <label for="endereco">Endereço residencial</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <input type="text" id="endereco" name="endereco" placeholder="Rua, número" required>
+          </div>
+        </div>
 
-      <p class="custom-date-label">Ou escolha um dia que funcione melhor para você:</p>
-      <input type="date" id="custom-date-input" class="date-input">
+        <div class="grid-2-cols">
+          <div class="input-group">
+            <label for="bairro">Bairro</label>
+            <input type="text" id="bairro" name="bairro" placeholder="Ex: Asa Sul" required>
+          </div>
 
-      <div class="footer-nav">
-        <button class="btn-link" onclick="prevStep(5)">Voltar</button>
-        <button class="btn-primary btn-next" onclick="finishForm()" id="btn-finalizar" disabled>Enviar</button>
-      </div>
-    </div>
+          <div class="input-group">
+            <label for="cep">CEP</label>
+            <input type="text" id="cep" name="cep" placeholder="70000-000" maxlength="9">
+          </div>
+        </div>
 
-    <!-- ETAPA 7: SUCESSO -->
-    <div class="step" id="step-7">
-      <div class="header-subtitle">
-        <h2>Tudo pronto! 🎉</h2>
-        <p>Anotei aqui suas respostas. Até breve!</p>
-      </div>
-      <div class="illustrations">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZneXZ3bnhsbW54bzN3M3EzYjlqNDMxaThqOHJveWdyZHFmdXJ2ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" alt="Cute Cat">
-      </div>
-    </div>
+        <p class="helper-text">
+          Usamos seu endereço de casa para indicar as igrejas mais próximas de onde você mora.
+        </p>
+      </section>
 
+      <!-- Botão de Ação -->
+      <button type="submit" class="btn-submit">Concluir e Ver Conteúdos</button>
+    </form>
   </div>
 
   <script src="script.js"></script>
