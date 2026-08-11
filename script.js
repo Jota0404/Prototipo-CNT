@@ -56,24 +56,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 5. Envio dos Dados para o Supabase
   const SUPABASE_URL = 'https://uefzlaahnukrqmlgkbgv.supabase.co';
-  const SUPABASE_ANON_KEY = 'sb_publishable_lsDwZIB1_VtgzMU9d3Uv9Q_U_ceLqei'; // A que começa com sb_publishable_
+  const SUPABASE_ANON_KEY = 'sb_publishable_lsDwZIB1_VtgzMU9d3Uv9Q_U_ceLqei';
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    // Trava o botão para evitar envio duplo
+    submitBtn.disabled = true;
+    submitBtn.innerText = 'Enviando...';
+    submitBtn.style.opacity = '0.7';
+
     const formData = {
       nome: document.getElementById('nome').value,
       whatsapp: whatsappInput.value,
-      idade: document.getElementById('idade').value,
+      idade: parseInt(document.getElementById('idade').value),
       sexo: sexoHiddenInput.value,
       endereco: document.getElementById('endereco').value,
       bairro: document.getElementById('bairro').value,
       cep: cepInput.value
     };
 
-    console.log('Dados prontos para envio:', formData);
-    
-    // Aqui você chama a função de envio para o seu backend (Supabase ou Webhook)
-    alert('Cadastro realizado com sucesso!');
+    try {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/cadastros`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro na comunicação com o banco de dados.');
+      }
+
+      alert('Cadastro realizado com sucesso! Que alegria ter você com a gente.');
+      
+      // Limpa o formulário
+      form.reset();
+      pillBtns.forEach(b => b.classList.remove('selected'));
+      sexoHiddenInput.value = '';
+      submitBtn.classList.remove('active');
+
+    } catch (error) {
+      console.error('Erro:', error);
+      alert('Ops! Tivemos um problema de conexão. Tente novamente em instantes.');
+    } finally {
+      // Destrava o botão
+      submitBtn.disabled = false;
+      submitBtn.innerText = 'Concluir e Ver Conteúdos';
+      submitBtn.style.opacity = '1';
+    }
   });
-});
