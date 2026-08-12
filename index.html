@@ -39,13 +39,39 @@
             <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
             </svg>
-            <input type="tel" id="whatsapp" name="whatsapp" placeholder="(61) 99999-9999" maxlength="15" required>
+            <!-- CORREÇÃO: adicionado pattern + title (atributos nativos, sem impacto visual).
+                 Antes, type="tel" só exigia "não vazio". Agora o navegador só considera
+                 válido quando o número estiver no formato completo (XX) XXXXX-XXXX. -->
+            <input
+              type="tel"
+              id="whatsapp"
+              name="whatsapp"
+              placeholder="(61) 99999-9999"
+              maxlength="15"
+              pattern="\(\d{2}\) \d{5}-\d{4}"
+              title="Digite o WhatsApp completo com DDD, ex: (61) 99999-9999"
+              inputmode="numeric"
+              required
+            >
           </div>
         </div>
 
         <div class="input-group">
           <label for="idade">Idade</label>
-          <input type="number" id="idade" name="idade" placeholder="Ex: 28" min="1" max="120" required>
+          <!-- CORREÇÃO: step="1" explícito + title (mensagem de validação nativa).
+               A lógica que impede decimais/caracteres inválidos foi movida para o JS. -->
+          <input
+            type="number"
+            id="idade"
+            name="idade"
+            placeholder="Ex: 28"
+            min="1"
+            max="120"
+            step="1"
+            inputmode="numeric"
+            title="Informe uma idade inteira entre 1 e 120"
+            required
+          >
         </div>
 
         <div class="input-group">
@@ -54,6 +80,11 @@
             <button type="button" class="pill-btn" data-value="Masculino">Masculino</button>
             <button type="button" class="pill-btn" data-value="Feminino">Feminino</button>
           </div>
+          <!-- CORREÇÃO: propositalmente SEM atributo "required" aqui.
+               Inputs type="hidden" não são validados nativamente pelo navegador;
+               se "required" fosse adicionado, o submit seria bloqueado
+               SILENCIOSAMENTE (sem nenhum aviso ao usuário). A validação real
+               do Sexo agora é feita em JS, no início do submit handler (script.js). -->
           <input type="hidden" id="sexo" name="sexo">
         </div>
       </section>
@@ -81,7 +112,18 @@
 
           <div class="input-group">
             <label for="cep">CEP</label>
-            <input type="text" id="cep" name="cep" placeholder="70000-000" maxlength="9">
+            <!-- CORREÇÃO: pattern valida o formato SÓ quando o usuário digita algo
+                 (campo continua opcional, sem "required" — comportamento visual igual). -->
+            <input
+              type="text"
+              id="cep"
+              name="cep"
+              placeholder="70000-000"
+              maxlength="9"
+              pattern="\d{5}-\d{3}"
+              title="Formato esperado: 00000-000"
+              inputmode="numeric"
+            >
           </div>
         </div>
 

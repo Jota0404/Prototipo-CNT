@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('cadastro-form');
   const whatsappInput = document.getElementById('whatsapp');
   const cepInput = document.getElementById('cep');
+  const idadeInput = document.getElementById('idade'); // CORREÇÃO: referência adicionada para o filtro de dígitos
   const pillBtns = document.querySelectorAll('.pill-btn');
   const sexoHiddenInput = document.getElementById('sexo');
   const submitBtn = document.querySelector('.btn-submit');
@@ -44,13 +45,27 @@ document.addEventListener('DOMContentLoaded', () => {
     checkFormValidity();
   });
 
-  // 3.1 Função para buscar o CEP na API (ViaCEP)
+  // 3.1 CORREÇÃO: filtro de dígitos para Idade (impede "e", "+", "-", "." em type="number",
+  // que passariam despercebidos e só seriam barrados na validação nativa sem feedback claro)
+  idadeInput.addEventListener('input', (e) => {
+    let value = e.target.value.replace(/[^\d]/g, '');
+    if (value.length > 3) value = value.slice(0, 3); // idade máx. é 120 -> 3 dígitos
+    e.target.value = value;
+    checkFormValidity();
+  });
+
+  // 3.2 Função para buscar o CEP na API (ViaCEP)
 async function buscarEndereco(cep) {
   // Remove qualquer caractere que não seja número
   const cepLimpo = cep.replace(/\D/g, '');
 
   if (cepLimpo.length !== 8) {
-    return; // CEP incompleto, não faz a busca
+    // CORREÇÃO: feedback quando o usuário sai do campo com um CEP incompleto
+    // (antes falhava silenciosamente, sem nenhum aviso)
+    if (cepLimpo.length > 0) {
+      alert('CEP incompleto. Digite os 8 dígitos para buscar o endereço automaticamente.');
+    }
+    return; // CEP incompleto ou vazio, não faz a busca
   }
 
   try {
@@ -61,7 +76,12 @@ async function buscarEndereco(cep) {
       // Preenche os campos se encontrar o endereço
       document.getElementById('endereco').value = data.logradouro;
       document.getElementById('bairro').value = data.bairro;
-      
+
+      // CORREÇÃO: sincroniza o estado visual do botão após o preenchimento automático.
+      // Atribuições via JS (.value = ...) NÃO disparam o evento "input" do formulário,
+      // então checkFormValidity() nunca era chamado depois do autofill.
+      checkFormValidity();
+
       // Opcional: Se quiser dar foco no campo seguinte (ex: número da casa)
       // document.getElementById('numero').focus(); 
     } else {
@@ -78,6 +98,8 @@ cepInput.addEventListener('blur', (e) => {
 });
 
   // 4. Ativação visual do botão quando campos obrigatórios estiverem preenchidos
+  // (mantido apenas como controle VISUAL da classe .active; o bloqueio real do
+  // submit para o campo Sexo agora está no submit handler, item 5 abaixo)
   function checkFormValidity() {
     if (form.checkValidity() && sexoHiddenInput.value !== '') {
       submitBtn.classList.add('active');
@@ -94,6 +116,15 @@ cepInput.addEventListener('blur', (e) => {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // CORREÇÃO: bloqueio REAL do envio quando "Sexo" não foi selecionado.
+    // Antes, checkFormValidity() só controlava a classe ".active" (visual);
+    // o botão continuava clicável e o form era enviado mesmo com sexo: "".
+    // Como o input é type="hidden", o navegador nunca valida isso sozinho.
+    if (!sexoHiddenInput.value) {
+      alert('Por favor, selecione o Sexo antes de continuar.');
+      return;
+    }
 
     // Trava o botão para evitar envio duplo
     submitBtn.disabled = true;
@@ -157,3 +188,4 @@ cepInput.addEventListener('blur', (e) => {
       submitBtn.style.opacity = '1';
     }
   });
+});
